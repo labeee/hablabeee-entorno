@@ -24,6 +24,11 @@ path_key = r'system/api_key.txt'
 
 # Variables
 interest_zones = [
+    "mercado", 
+    "farmácia", 
+    "lotérica", 
+    "escola pública", 
+    "posto de saúde"
     ]
 
 # limit = 8

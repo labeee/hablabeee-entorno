@@ -15,7 +15,7 @@ response = client.places_nearby(
 
 print(response)
 
-with open('Teste_de_Retorno.txt', 'w') as pn:
+with open(r'testingPlayground/Teste_de_Retorno.txt', 'w') as pn:
     pn.write('\n\n'.join(str(response).split("business_status")))
     pn.close()
 
@@ -23,4 +23,4 @@ pontonemo = pd.DataFrame(response.get('results'))
 
 print(pontonemo)
 
-pontonemo.to_csv('DataFrame_de_Teste.csv', sep=';')
+pontonemo.to_csv(r'testingPlayground/DataFrame_de_Teste.csv', sep=';')
