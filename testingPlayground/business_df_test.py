@@ -648,7 +648,7 @@ ex = {
 ex = ex.get('results')
 ex = pd.DataFrame(ex)
 print(ex)
-ex.to_csv('example_0.csv', sep=';')
+ex.to_csv(r'testingPlayground/example_0.csv', sep=';')
 print('\n'*3)
 formated = pd.DataFrame()
 formated[['interest_name', 'interest_coordinates', 'interest_vicinity', 'interest_types']] = None
@@ -660,5 +660,5 @@ for row in ex.index:
     formated.at[row, 'interest_types'] = ex.at[row, 'types']
 print('\n'*3)
 print(formated)
-formated.to_csv('example_1.csv', sep=';')
+formated.to_csv(r'testingPlayground/example_1.csv', sep=';')
 print('\n'*3)

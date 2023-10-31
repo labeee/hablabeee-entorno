@@ -16,10 +16,11 @@ client = googlemaps.Client(key)
 
 
 # Paths
-path_setup = r'system/has_setup.txt'
+path_system = r'system/'
+path_setup = f'{path_system}has_setup.txt'
 path_input = r'input/'
 path_output = r'output/'
-path_key = r'system/api_key.txt'
+path_key = f'{path_system}api_key.txt'
 
 
 # Variables

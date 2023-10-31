@@ -42,11 +42,10 @@ def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFram
         interest_dataframe = interest_dataframe.append(append_dataframe, ignore_index=True)
         
         found_list.append(response.get('results'))
-        print(f'\n\t- Quantity of found interest points: {len(found_list)}')
     
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
     interest_dataframe[original_columns] = input_dataframe.loc[row]
     interest_dataframe.columns = [original_columns.tolist()+interest_columns.tolist()]
     print(f'\n\t- Processed and organized DataFrame for {empreendimento}:\n{interest_dataframe}\n')
-    interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{cep}?.csv', sep=';')
+    interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{hab}?.csv', sep=';')

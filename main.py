@@ -23,5 +23,6 @@ for base in globed:
         coordinates = f"{str(input_dataframe.at[row, 'Latitude']).replace(',', '.').replace('°', '')}/{str(input_dataframe.at[row, 'Longitude']).replace(',', '.').replace('°', '')}"
         nearbyPlaces(rad=radius, limit=itens_limit, hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
         print(separators)
+    routesMatrix()
 
         
