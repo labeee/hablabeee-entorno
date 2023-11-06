@@ -7,7 +7,7 @@ import pandas as pd
 import googlemaps
 from glob import glob
 from places import *
-from routes import *
+from routes_matrix import *
 
 
 # API Params

@@ -21,6 +21,9 @@ def routesMatrix():
         response = client.distance_matrix(
             origins=pin_point,
             destinations=coord_destinations,
-            mode='walking'
+            mode='walking',
+            language='pt-BR',
+            units='metric',
+            transit_routing_preference='less_walking'
         )
         
