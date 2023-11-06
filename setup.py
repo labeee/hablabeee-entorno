@@ -25,15 +25,13 @@ path_key = f'{path_system}api_key.txt'
 
 # Variables
 interest_zones = [
-    "mercado", 
-    "farmácia", 
-    "lotérica", 
-    "escola pública", 
-    "posto de saúde"
+    "mercado?5", 
+    "farmácia?5", 
+    "lotérica?5", 
+    "escola pública?5", 
+    "posto de saúde?5"
     ]
 
-# limit = 8
-# radius = 200
 
 
 # Instalador/Atualizador de pacotes

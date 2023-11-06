@@ -9,20 +9,24 @@ clear_screen()
 print(title)
 build_wall(2)
 
-globed = glob(path_input)
+globed = glob(f'{path_input}*.csv')
 
 for base in globed:
-    input_dataframe = pd.read_csv(base)
+    input_dataframe = pd.read_csv(base, sep=';')
     print(f'\n\t- Scanned {base}\n')
     print(separators)
-    for row in input_dataframe.index:
-        empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
-        cep = input_dataframe.at[row, 'txt_cep']
-        print(separators)
-        print(f'\n\t- Processing row of index {row}, {empreendimento_nome}\n')
-        coordinates = f"{str(input_dataframe.at[row, 'Latitude']).replace(',', '.').replace('°', '')}/{str(input_dataframe.at[row, 'Longitude']).replace(',', '.').replace('°', '')}"
-        nearbyPlaces(rad=radius, limit=itens_limit, hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
-        print(separators)
-    routesMatrix()
-
+    opt = 0
+    while opt != '':
+        opt = input(f'\nSelect an option to continue:\n\n[1] Apply NearbyPlaces\n[2] Apply RoutesMatrix\n\n[ENTER] Exit\n\n{separators}\n...')
+        if opt == '1':
+            for row in input_dataframe.index:
+                empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
+                cep = input_dataframe.at[row, 'txt_cep']
+                coordinates = f"{str(input_dataframe.at[row, 'Latitude']).replace(',', '.').replace('°', '')}/{str(input_dataframe.at[row, 'Longitude']).replace(',', '.').replace('°', '')}"
+                nearbyPlaces(rad=radius, limit=itens_limit, hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
+        elif opt == '2':
+            routesMatrix()
         
+clear_screen()
+print(title)
+build_wall(5)

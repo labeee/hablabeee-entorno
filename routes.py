@@ -14,12 +14,13 @@ def routesMatrix():
     for caso in globed:
         df = pd.read_csv(caso, sep=';')
         coord = caso.split('?')[2]
+        pin_point = {'lat': coord[0], 'lng': coord[1]}
         coord_destinations = []
         for i in df.index:
             coord_destinations.append(df.at[i, 'coordenada_interesse'])
         response = client.distance_matrix(
-            origins=coord,
-            destinations=[coord_destinations],
+            origins=pin_point,
+            destinations=coord_destinations,
             mode='walking'
         )
         

@@ -43,6 +43,6 @@ print('\n'*5)
 df_2[colunas_cidade] = df_1.loc[0]
 print(df_2)
 print('\n'*5)
-df_2.columns = [colunas_cidade.tolist()+colunas_pessoas.tolist()]
+df_2 = df_2[colunas_cidade.tolist()+colunas_pessoas.tolist()]
 print(df_2)
 print('\n'*5)

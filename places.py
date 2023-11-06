@@ -15,37 +15,33 @@ def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFram
     empreendimento: nome do empreendimento que está sendo processado
     cep: cep do empreendimento que está sendo processado
     """
+    size = len(input_dataframe)
+    print(f'\n\t>> Processing row {row}\tout of {size}', end='\r')
     interest_dataframe = pd.Dataframe()
     interest_dataframe[['ponto_interesse', 'coordenada_interesse', 'endereco_interesse', 'tipo_interesse']] = None
     coordinates = hab.split('/')
-    found_list = []
-    print(f'\n\t- Created DataFrame for interest points')
-    # while len(found_list) < limit:
     for i in interest_zones:
-        print(f'\n\t- Requesting nearby {i}')
         response = client.places_nearby(
             location=(coordinates[0], coordinates[1]),
-            keyword=i,
+            keyword=i.split('?')[0],
             rank_by='distance'
-            # radius=radius
         )
         business = pd.DataFrame(response.get('results'))
-        print(f'\n\t- Found {len(business)} results: \n{business}\n')
 
         append_dataframe = pd.DataFrame()
         append_dataframe[['ponto_interesse', 'coordenada_interesse', 'endereco_interesse', 'tipo_interesse']] = None
-        for ind in business.index:
-            append_dataframe.at[ind, 'ponto_interesse'] = business.at[ind, 'name']
-            append_dataframe.at[ind, 'coordenada_interesse'] = business.at[ind, 'geometry']['location']
-            append_dataframe.at[ind, 'endereco_interesse'] = business.at[ind, 'vicinity']
-            append_dataframe.at[ind, 'tipo_interesse'] = business.at[ind, 'types']
+        counter = 0
+        while counter < int(i.split('?')[1]):
+            for ind in business.index:
+                append_dataframe.at[ind, 'ponto_interesse'] = business.at[ind, 'name']
+                append_dataframe.at[ind, 'coordenada_interesse'] = business.at[ind, 'geometry']['location']
+                append_dataframe.at[ind, 'endereco_interesse'] = business.at[ind, 'vicinity']
+                append_dataframe.at[ind, 'tipo_interesse'] = business.at[ind, 'types']
+                counter += 1
         interest_dataframe = interest_dataframe.append(append_dataframe, ignore_index=True)
         
-        found_list.append(response.get('results'))
-    
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
     interest_dataframe[original_columns] = input_dataframe.loc[row]
-    interest_dataframe.columns = [original_columns.tolist()+interest_columns.tolist()]
-    print(f'\n\t- Processed and organized DataFrame for {empreendimento}:\n{interest_dataframe}\n')
+    interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
     interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{hab}?.csv', sep=';')

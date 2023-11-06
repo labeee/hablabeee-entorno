@@ -1,0 +1,3 @@
+;elements
+0;{'status': 'OK', 'duration': {'value': 96000, 'text': '1 day 3 hours'}, 'distance': {'value': 2566737, 'text': '1595 mi'}}
+1;{'status': 'OK', 'duration': {'value': 69698, 'text': '19 hours 22 mins'}, 'distance': {'value': 1942009, 'text': '1207 mi'}}
