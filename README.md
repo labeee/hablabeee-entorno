@@ -6,7 +6,7 @@ Elaboração da descrição e do README ficam por responsabilidade da Natasha e 
 <br>
 A ferramenta tem como objetivo buscar, utilizando duas APIs do Google Maps Platform, múltiplos pontos de interesse nos arredores das coordenadas de cada habitação, construindo uma planilha onde estão indicados os pontos encontrados, com suas descrições, além da distância e tempo de viagem de cada com relação à coordenada inicial.
 <br><br>
-<h2>Fluxo de processo</h2>
+<h2>Fluxo de processo (até o que foi programado no momento)</h2>
 Com todas as variáveis devidamente definidas, é lida cada linha da planilha de amostra, e para cada uma o seguinte processo:
 
 - A coordenada é devidamente formatada e registrada;
