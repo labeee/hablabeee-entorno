@@ -5,10 +5,8 @@
 
 from setup import *
 
-def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, cep:str):
+def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, cep:str):
     """
-    radius: raio, em metros, de busca
-    limit: tamanho limite de itens encontrados para parar a busca
     hab: coordenadas da habitação (no formato ** latitude/longitude **)
     input_dataframe: dataframe original
     row: linha que está sendo processada

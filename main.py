@@ -26,7 +26,7 @@ for base in globed:
                 empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
                 cep = input_dataframe.at[row, 'txt_cep']
                 coordinates = f"{str(input_dataframe.at[row, 'latitude']).replace(',', '.').replace('°', '')}/{str(input_dataframe.at[row, 'longitude']).replace(',', '.').replace('°', '')}"
-                nearbyPlaces(rad=radius, limit=itens_limit, hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
+                nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
             nbp = True
             clear_screen()
         elif opt == '2':
