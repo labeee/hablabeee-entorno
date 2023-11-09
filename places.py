@@ -5,13 +5,14 @@
 
 from setup import *
 
-def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, cep:str):
+def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, cep:str, base: str):
     """
     hab: coordenadas da habitação (no formato ** latitude/longitude **)
     input_dataframe: dataframe original
     row: linha que está sendo processada
     empreendimento: nome do empreendimento que está sendo processado
     cep: cep do empreendimento que está sendo processado
+    base: nome do arquivo com diretorio
     """
     size = len(input_dataframe)
     interest_dataframe = pd.DataFrame()
@@ -47,8 +48,8 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
     if len(interest_dataframe) == 0:
-        print('[red]WARNING:[/red] DataFrame of lenght 0\n[red]CSV will not be created[/red]\n')
-        error_description = f"Name: {empreendimento}\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\nCEP: {input_dataframe.at[row, 'txt_cep']}\nOrigin DataFrame: {input_dataframe}\nRow at DataFrame: {row}"
+        print('\n[red]WARNING:[/red] DataFrame of lenght 0\nCSV will not be created, [yellow]txt file with description will be created instead[/yellow]\n')
+        error_description = f"Problem: No interest points found\n\nName: {empreendimento}\n\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\n\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\n\nCEP: {input_dataframe.at[row, 'txt_cep']}\n\nRow/Index at DataFrame: {row}\n\nOrigin DataFrame: {base}"
         problem_handler = open(f'system/PROBLEM_at_{empreendimento}.txt', 'w').write(error_description)
     else:
         interest_dataframe[original_columns] = input_dataframe.loc[row]
@@ -57,3 +58,4 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
         print(f'\n[blue]Creating[/blue] CSV for {empreendimento}\n\n')
         df_name = f'{path_system}businessCase&{empreendimento}&{coordinates[0]}+{coordinates[1]}&.csv'
         interest_dataframe.to_csv(df_name, sep=';')
+        

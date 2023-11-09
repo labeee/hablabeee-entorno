@@ -22,12 +22,11 @@ def routesMatrix():
             destinations=coord_destinations,
             mode='walking',
             language='pt-BR',
-            units='metric',
-            transit_routing_preference='less_walking'
+            units='metric'
         )
         
         rows = response.get('rows')[0].get('elements')
-        print(f'[green]Returned[/green] results:\n{rows}')
+        print(f'[green]Returned[/green]:\n{rows}')
         df_response = pd.DataFrame(rows)
         df_response.drop(columns=['status'], axis=1, inplace=True)
 

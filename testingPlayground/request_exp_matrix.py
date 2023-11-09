@@ -23,8 +23,7 @@ response = client.distance_matrix(
                 destinations=coord_destinations,
                 mode='walking',
                 language='pt-BR',
-                units='metric',
-                transit_routing_preference='less_walking'
+                units='metric'
                 )
 
 print(response)

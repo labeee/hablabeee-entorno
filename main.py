@@ -39,7 +39,7 @@ for base in globed:
                 cep = input_dataframe.at[row, 'txt_cep']
                 coordinates = f"{str(input_dataframe.at[row, 'latitude'])}/{str(input_dataframe.at[row, 'longitude'])}"
                 print(f'\nApplying NearbySearch to [purple]{empreendimento_nome}[/purple] of coordinates {coordinates}\n')
-                nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
+                nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep, base=base)
             nbp = True
         elif opt == '2':
             routesMatrix()
