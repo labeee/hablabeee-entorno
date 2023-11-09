@@ -14,7 +14,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     cep: cep do empreendimento que está sendo processado
     """
     size = len(input_dataframe)
-    interest_dataframe = pd.Dataframe()
+    interest_dataframe = pd.DataFrame()
     interest_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
     coordinates = hab.split('/')
     for i in interest_zones:
