@@ -45,9 +45,11 @@ for base in globed:
                     for cache in track(concat_glob, description=f'Concatenando DataFrames...', style='black', complete_style='white', finished_style='green'):
                         new_df = pd.read_csv(cache, sep=';')
                         concat_df = pd.concat([concat_df, new_df], axis=0, ignore_index=True)
+                    now = datetime.now().strftime('%d-%m-%Y_%H-%M')
+                    concat_df.to_csv(f'{path_output}hab_entorno_case_{now}.csv', sep=';')
             clear_screen()
         
 clear_screen()
 print(title)
 build_wall(5)
-print('\nDeveloped by [green]Zac Milioli[/green]\n-\thttps://www.linkedin.com/in/zac-milioli\n-\thttps://github.com/Zac-Milioli\n\n')
+print('\nDeveloped by [green]Zac Milioli[/green]\n-\thttps://www.linkedin.com/in/zac-milioli\n-\thttps://github.com/Zac-Milioli\n-\tzacmilioli@gmail.com\n\n')
