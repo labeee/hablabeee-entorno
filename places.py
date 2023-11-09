@@ -50,7 +50,6 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
         print('[red]WARNING:[/red] DataFrame of lenght 0\n[red]CSV will not be created[/red]\n')
         error_description = f"Name: {empreendimento}\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\nCEP: {input_dataframe.at[row, 'txt_cep']}\nOrigin DataFrame: {input_dataframe}\nRow at DataFrame: {row}"
         problem_handler = open(f'system/PROBLEM_at_{empreendimento}.txt', 'w').write(error_description)
-        problem_handler.close()
     else:
         interest_dataframe[original_columns] = input_dataframe.loc[row]
         interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
