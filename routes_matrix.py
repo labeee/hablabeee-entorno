@@ -14,6 +14,7 @@ def routesMatrix():
     for caso in track(globed, description='Aplicando [green]DistanceMatrix...', style='black', complete_style='white', finished_style='green'):
         df = pd.read_csv(caso, sep=';')
         coord = caso.split('?')[2]
+        coord = coord.split('-')
         pin_point = {'lat': coord[0], 'lng': coord[1]}
         coord_destinations = []
         for i in df.index:

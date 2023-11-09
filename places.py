@@ -35,10 +35,10 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                 append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
                 append_dataframe.at[ind, 'tipos_do_local'] = business.at[ind, 'types']
                 counter += 1
-        interest_dataframe = interest_dataframe.append(append_dataframe, ignore_index=True)
+        interest_dataframe = pd.concat([interest_dataframe, append_dataframe], axis=0, ignore_index=True)
         
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
     interest_dataframe[original_columns] = input_dataframe.loc[row]
     interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
-    interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{hab}?.csv', sep=';')
+    interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{coordinates[0]}-{coordinates[1]}?.csv', sep=';')

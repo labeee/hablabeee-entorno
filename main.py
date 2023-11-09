@@ -2,8 +2,20 @@
 # reunidas e devidamente organizadas para sempre funcionar adequadamente sem
 # a necessidade de edições ou programação pelo usuário
 
+# Instalador/Atualizador de pacotes
+has_setup = open(r'system/has_setup.txt', 'r').read()
+if has_setup == '0':
+    import os
+    os.system('python -m pip install --upgrade pip')
+    os.system('pip install --upgrade python')
+    os.system('pip install pandas')
+    os.system('pip install googlemaps')
+    os.system('pip install rich')
+    has_setup = open(r'system/has_setup.txt', 'w').write('1')
+
 from setup import *
-install_packages()
+from places import *
+from routes_matrix import *
 
 clear_screen()
 print(title)
