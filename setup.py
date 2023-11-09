@@ -48,7 +48,7 @@ ___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|__\n"""
 wall_top = '______________________________________________________________________'
 
 def build_wall(height: int):
-    print(f'{wall_top}\n{wall*height}\n')
+    print(f'[orange1]{wall_top}\n{wall*height}\n')
 
 clean = '\n'*50
 def clear_screen():

@@ -29,22 +29,21 @@ for base in globed:
     input_dataframe = pd.read_csv(base, sep=';')
     opt = 0
     while opt != '':
-        print(separators)
-        print((f'\nSelect an option to continue:\n\n[1] Apply [blue]NearbyPlaces[/blue]\n[2] Apply [green]RoutesMatrix[/green]\n[3] [yellow]Concatenate[/yellow] and finish process\n\n[ENTER] [red]Exit[/red]\n\n{separators}\n'))
+        print((f'\n\n\n{separators}\nSelect an option to continue:\n\n[1] Apply [blue]NearbyPlaces[/blue]\n[2] Apply [green]RoutesMatrix[/green]\n[3] [yellow]Concatenate[/yellow] and finish process\n\n[ENTER] [red]Exit[/red]\n\n{separators}\n'))
         opt = input('...')
         clear_screen()
         if opt == '1':
             for row in track(input_dataframe.index, description=f'Executando [green]NearbyPlaces...', style='black', complete_style='white', finished_style='green'):
+                print(separators)
                 empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
                 cep = input_dataframe.at[row, 'txt_cep']
-                coordinates = f"{str(input_dataframe.at[row, 'latitude']).replace(',', '.').replace('°', '')}/{str(input_dataframe.at[row, 'longitude']).replace(',', '.').replace('°', '')}"
+                coordinates = f"{str(input_dataframe.at[row, 'latitude'])}/{str(input_dataframe.at[row, 'longitude'])}"
+                print(f'\nApplying NearbySearch to [purple]{empreendimento_nome}[/purple] of coordinates {coordinates}\n')
                 nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep)
             nbp = True
-            clear_screen()
         elif opt == '2':
             routesMatrix()
             rm = True
-            clear_screen()
         elif opt == '3':
             if not nbp and not rm:
                 print(f'[red]WARNING[/red]\n{separators}\nYou seem to not have executed yet both [green]DistanceMatrix[/green]({rm}) and [green]NearbyPlaces[/green]({nbp}),\nare you sure you want to concatenate?\nThis might result in an [red]error[/red]...\n\n[0] Yes\n[ENTER] No\n{separators}\n')
@@ -58,7 +57,6 @@ for base in globed:
                         concat_df = pd.concat([concat_df, new_df], axis=0, ignore_index=True)
                     now = datetime.now().strftime('%d-%m-%Y_%H-%M')
                     concat_df.to_csv(f'{path_output}hab_entorno_{now}.csv', sep=';')
-            clear_screen()
         
 clear_screen()
 print(title)

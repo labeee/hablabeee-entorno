@@ -23,22 +23,38 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
             keyword=i.split('?')[0],
             rank_by='distance'
         )
-        business = pd.DataFrame(response.get('results'))
-
-        append_dataframe = pd.DataFrame()
-        append_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
-        counter = 0
-        while counter < int(i.split('?')[1]):
-            for ind in business.index:
-                append_dataframe.at[ind, 'local_de_interesse'] = business.at[ind, 'name']
-                append_dataframe.at[ind, 'coordenada_do_local'] = business.at[ind, 'geometry']['location']
-                append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
-                append_dataframe.at[ind, 'tipos_do_local'] = business.at[ind, 'types']
-                counter += 1
-        interest_dataframe = pd.concat([interest_dataframe, append_dataframe], axis=0, ignore_index=True)
+        print(f'Looking for [blue]{i.split("?")[0]}[/blue], [green]got {len(response.get("results"))} results[/green]')
         
+        if len(response.get('results')) == 0:
+            print('\n[red]No results, looking for next keyword...\n')
+        else:
+            business = pd.DataFrame(response.get('results'))
+            append_dataframe = pd.DataFrame()
+            append_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
+            results = len(response.get('results'))
+            print(f'[yellow]Processing the [/yellow][pink]{i.split("?")[1]}[/pink] [yellow]first returned values...[/yellow]')
+            for ind in business.index:
+                if (ind < int(i.split('?')[1])) and (ind < results):
+                    append_dataframe.at[ind, 'local_de_interesse'] = business.at[ind, 'name']
+                    append_dataframe.at[ind, 'coordenada_do_local'] = business.at[ind, 'geometry']['location']
+                    append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
+                    append_dataframe.at[ind, 'tipos_do_local'] = business.at[ind, 'types']
+                    print(f'[magenta]\tAppending items of index[/magenta] {ind}')
+            interest_dataframe = pd.concat([interest_dataframe, append_dataframe], axis=0, ignore_index=True)
+            print('[green]Successfully processed DataFrame\n')
+        
+    coordinates = list(map(lambda x: x.replace('.', ','), coordinates))
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
-    interest_dataframe[original_columns] = input_dataframe.loc[row]
-    interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
-    interest_dataframe.to_csv(f'{path_output}businessCase?{empreendimento}?{coordinates[0]}-{coordinates[1]}?.csv', sep=';')
+    if len(interest_dataframe) == 0:
+        print('[red]WARNING:[/red] DataFrame of lenght 0\n[red]CSV will not be created[/red]\n')
+        error_description = f"Name: {empreendimento}\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\nCEP: {input_dataframe.at[row, 'txt_cep']}\nOrigin DataFrame: {input_dataframe}\nRow at DataFrame: {row}"
+        problem_handler = open(f'system/PROBLEM_at_{empreendimento}.txt', 'w').write(error_description)
+        problem_handler.close()
+    else:
+        interest_dataframe[original_columns] = input_dataframe.loc[row]
+        interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
+        print(interest_dataframe)
+        print(f'\n[blue]Creating[/blue] CSV for {empreendimento}\n\n')
+        df_name = f'{path_system}businessCase&{empreendimento}&{coordinates[0]}+{coordinates[1]}&.csv'
+        interest_dataframe.to_csv(df_name, sep=';')
