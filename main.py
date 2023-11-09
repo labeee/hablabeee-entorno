@@ -15,11 +15,10 @@ rm = False
 
 for base in globed:
     input_dataframe = pd.read_csv(base, sep=';')
-    print(f'\n\t- Scanned {base}\n')
     opt = 0
     while opt != '':
         print(separators)
-        print((f'\nSelect an option to continue:\n\n[1] Apply NearbyPlaces\n[2] Apply RoutesMatrix\n[3] Concatenate and finish process\n\n[ENTER] Exit\n\n{separators}\n'))
+        print((f'\nSelect an option to continue:\n\n[1] Apply [blue]NearbyPlaces[/blue]\n[2] Apply [green]RoutesMatrix[/green]\n[3] [yellow]Concatenate[/yellow] and finish process\n\n[ENTER] [red]Exit[/red]\n\n{separators}\n'))
         opt = input('...')
         clear_screen()
         if opt == '1':
@@ -52,4 +51,4 @@ for base in globed:
 clear_screen()
 print(title)
 build_wall(5)
-print('\nDeveloped by [green]Zac Milioli[/green]\n-\thttps://www.linkedin.com/in/zac-milioli\n-\thttps://github.com/Zac-Milioli\n-\tzacmilioli@gmail.com\n\n')
+print('\nDeveloped by [green]Zac Milioli[/green]\n-\thttps://www.linkedin.com/in/zac-milioli\n-\thttps://github.com/Zac-Milioli\n-\t[yellow][underline]zacmilioli@gmail.com[/underline][/yellow]\n\n')
