@@ -16,7 +16,6 @@ def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFram
     cep: cep do empreendimento que está sendo processado
     """
     size = len(input_dataframe)
-    print(f'\n\t>> Processing row {row}\tout of {size}', end='\r')
     interest_dataframe = pd.Dataframe()
     interest_dataframe[['ponto_interesse', 'coordenada_interesse', 'endereco_interesse', 'tipo_interesse']] = None
     coordinates = hab.split('/')
