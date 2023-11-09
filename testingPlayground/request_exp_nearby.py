@@ -1,11 +1,10 @@
-import pandas as pd
 import googlemaps
+
 # Atualmente são coordenadas de Covó, em Mangueirinha (PR)
 coordenadas = '-25.997858098017268/-52.22127528495758'
-
 coordinates = coordenadas.split('/')
-key = 'INSIRA SUA CHAVE'
 
+key = 'INSIRA SUA CHAVE'
 
 client = googlemaps.Client(key)
 
@@ -17,12 +16,6 @@ response = client.places_nearby(
 
 print(response)
 
-with open(r'testingPlayground/Teste_de_Retorno.txt', 'w') as pn:
-    pn.write('\n\n'.join(str(response).split("business_status")))
-    pn.close()
-
-dataframe = pd.DataFrame(response.get('results'))
-
-print(dataframe)
-
-dataframe.to_csv(r'testingPlayground/DataFrame_de_Teste.csv', sep=';')
+with open(r'testingPlayground/Teste_de_Retorno_Nearby.txt', 'w') as covo:
+    covo.write('\n\n'.join(str(response).split("business_status")))
+    covo.close()

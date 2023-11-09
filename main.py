@@ -18,6 +18,7 @@ for base in globed:
     opt = 0
     while opt != '':
         opt = input(f'\nSelect an option to continue:\n\n[1] Apply NearbyPlaces\n[2] Apply RoutesMatrix\n\n[ENTER] Exit\n\n{separators}\n...')
+        clear_screen()
         if opt == '1':
             for row in input_dataframe.index:
                 empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
