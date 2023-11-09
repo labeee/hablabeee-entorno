@@ -24,6 +24,6 @@ df_filtered.to_csv(f'testingPlayground/example_matrix.csv', sep=';')
 for i in df_filtered.index:
     df_filtered.at[i, 'distance'] = df_filtered.at[i, 'distance'].get('value')
     df_filtered.at[i, 'duration'] = df_filtered.at[i, 'duration'].get('value')
-df_filtered.columns = ['distance (meters)', 'duration (seconds)']
+df_filtered.columns = ['distance(meters)', 'duration(seconds)']
 print(df_filtered)
 df_filtered.to_csv(f'testingPlayground/example_filtered_matrix.csv', sep=';')

@@ -46,7 +46,7 @@ for base in globed:
                         new_df = pd.read_csv(cache, sep=';')
                         concat_df = pd.concat([concat_df, new_df], axis=0, ignore_index=True)
                     now = datetime.now().strftime('%d-%m-%Y_%H-%M')
-                    concat_df.to_csv(f'{path_output}hab_entorno_case_{now}.csv', sep=';')
+                    concat_df.to_csv(f'{path_output}hab_entorno_{now}.csv', sep=';')
             clear_screen()
         
 clear_screen()

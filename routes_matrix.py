@@ -32,9 +32,10 @@ def routesMatrix():
         df_response.drop(columns=['status'], axis=1, inplace=True)
 
         for i in df_response.index:
+            minutos = int(df_response.at[i, 'duration'].get('value')) / 60
             df_response.at[i, 'distance'] = df_response.at[i, 'distance'].get('value')
-            df_response.at[i, 'duration'] = df_response.at[i, 'duration'].get('value')
-        df_response.columns = ['distance(meters)', 'duration(seconds)']
+            df_response.at[i, 'duration'] = minutos
+        df_response.columns = ['distancia(metros)', 'tempo_de_viagem(minutos)']
 
         df_response = pd.concat([df, df_response], ignore_index=True, axis=1)
         df_response.to_csv(caso, sep=';')

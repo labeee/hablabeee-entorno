@@ -17,7 +17,7 @@ def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFram
     """
     size = len(input_dataframe)
     interest_dataframe = pd.Dataframe()
-    interest_dataframe[['ponto_interesse', 'coordenada_interesse', 'endereco_interesse', 'tipo_interesse']] = None
+    interest_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
     coordinates = hab.split('/')
     for i in interest_zones:
         response = client.places_nearby(
@@ -28,14 +28,14 @@ def nearbyPlaces(radius: int, limit: int, hab: str, input_dataframe: pd.DataFram
         business = pd.DataFrame(response.get('results'))
 
         append_dataframe = pd.DataFrame()
-        append_dataframe[['ponto_interesse', 'coordenada_interesse', 'endereco_interesse', 'tipo_interesse']] = None
+        append_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
         counter = 0
         while counter < int(i.split('?')[1]):
             for ind in business.index:
-                append_dataframe.at[ind, 'ponto_interesse'] = business.at[ind, 'name']
-                append_dataframe.at[ind, 'coordenada_interesse'] = business.at[ind, 'geometry']['location']
-                append_dataframe.at[ind, 'endereco_interesse'] = business.at[ind, 'vicinity']
-                append_dataframe.at[ind, 'tipo_interesse'] = business.at[ind, 'types']
+                append_dataframe.at[ind, 'local_de_interesse'] = business.at[ind, 'name']
+                append_dataframe.at[ind, 'coordenada_do_local'] = business.at[ind, 'geometry']['location']
+                append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
+                append_dataframe.at[ind, 'tipos_do_local'] = business.at[ind, 'types']
                 counter += 1
         interest_dataframe = interest_dataframe.append(append_dataframe, ignore_index=True)
         
