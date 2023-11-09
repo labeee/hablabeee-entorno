@@ -4,3 +4,4 @@ __pycache__
 input/*.csv
 output/*.csv
 system/*.csv
+system/api_key.txt
