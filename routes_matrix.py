@@ -9,14 +9,17 @@ from setup import *
 def routesMatrix():
     globed = glob(f'{path_system}*.csv')
     for caso in track(globed, description='Aplicando [green]DistanceMatrix...', style='black', complete_style='white', finished_style='green'):
-        print(f'Searching [green]Matrix[/green] for [yellow]{caso}[/yellow]\n')
+        print(separators)
         df = pd.read_csv(caso, sep=';')
         coord = caso.split('&')[2]
         coord = coord.split('+')
         pin_point = {'lat': coord[0].replace(',', '.'), 'lng': coord[1].replace(',', '.')}
         coord_destinations = []
         for i in df.index:
-            coord_destinations.append(df.at[i, 'coordenada_do_local'])
+            json_format = df.at[i, 'coordenada_do_local'].replace("'", "\"")
+            json_format = json.loads(json_format)
+            coord_destinations.append(json_format)
+        print(f'Searching [green]Matrix[/green] for [yellow]{caso}[/yellow] with coordinates {pin_point}\n')
         response = client.distance_matrix(
             origins=pin_point,
             destinations=coord_destinations,
@@ -26,16 +29,18 @@ def routesMatrix():
         )
         
         rows = response.get('rows')[0].get('elements')
-        print(f'[green]Returned[/green]:\n{rows}')
+        print(f'[purple]Returned[/purple]:\n{response}\n')
         df_response = pd.DataFrame(rows)
         df_response.drop(columns=['status'], axis=1, inplace=True)
 
         for i in df_response.index:
             minutos = int(df_response.at[i, 'duration'].get('value')) / 60
             df_response.at[i, 'distance'] = df_response.at[i, 'distance'].get('value')
-            df_response.at[i, 'duration'] = minutos
+            df_response.at[i, 'duration'] = round(minutos, 2)
         df_response.columns = ['distancia(metros)', 'tempo_de_viagem(minutos)']
+        print(f'DataFrame from response:\n{df_response}\n\n')
 
-        df_response = pd.concat([df, df_response], ignore_index=True, axis=1)
-        print(f'[green]Creating[/green] CSV for [yellow]{caso}[/yellow]')
+        df_response = pd.concat([df, df_response], axis=1)
+        print(f'DataFrame concatenated:\n{df_response}\n\n')
+        print(f'\n[green]Creating[/green] CSV for [yellow]{caso}[/yellow]\n\n')
         df_response.to_csv(caso, sep=';')
