@@ -19,7 +19,7 @@ def routesMatrix():
             json_format = df.at[i, 'coordenada_do_local'].replace("'", "\"")
             json_format = json.loads(json_format)
             coord_destinations.append(json_format)
-        print(f'Searching [green]Matrix[/green] for [yellow]{caso}[/yellow] with coordinates {pin_point}\n')
+        print(f'Searching [green]Matrix[/green] for [deep_pink4]{caso}[/deep_pink4] with coordinates {pin_point}\n')
         response = client.distance_matrix(
             origins=pin_point,
             destinations=coord_destinations,
@@ -42,5 +42,6 @@ def routesMatrix():
 
         df_response = pd.concat([df, df_response], axis=1)
         print(f'DataFrame concatenated:\n{df_response}\n\n')
-        print(f'\n[green]Creating[/green] CSV for [yellow]{caso}[/yellow]\n\n')
+        print(f'\n[green]Updating[/green] CSV [purple]{caso}[/purple]\n')
         df_response.to_csv(caso, sep=';')
+        print(f'[yellow]Updated {caso}\n\n')

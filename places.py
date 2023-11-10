@@ -16,7 +16,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     """
     size = len(input_dataframe)
     interest_dataframe = pd.DataFrame()
-    interest_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
+    interest_dataframe[['keyword', 'local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
     coordinates = hab.split('/')
     for i in interest_zones:
         response = client.places_nearby(
@@ -31,11 +31,12 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
         else:
             business = pd.DataFrame(response.get('results'))
             append_dataframe = pd.DataFrame()
-            append_dataframe[['local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
+            append_dataframe[['keyword', 'local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
             results = len(response.get('results'))
-            print(f'[yellow]Processing the [/yellow][pink]{i.split("?")[1]}[/pink] [yellow]first returned values...[/yellow]')
+            print(f'[green1]Processing the [/green1][pink]{i.split("?")[1]}[/pink] [green1]first returned values...[/green1]')
             for ind in business.index:
                 if (ind < int(i.split('?')[1])) and (ind < results):
+                    append_dataframe.at[ind, 'keyword'] = i.split('?')[0]
                     append_dataframe.at[ind, 'local_de_interesse'] = business.at[ind, 'name']
                     append_dataframe.at[ind, 'coordenada_do_local'] = business.at[ind, 'geometry']['location']
                     append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
@@ -55,7 +56,8 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
         interest_dataframe[original_columns] = input_dataframe.loc[row]
         interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
         print(interest_dataframe)
-        print(f'\n[blue]Creating[/blue] CSV for {empreendimento}\n\n')
+        print(f'\n[blue]Creating[/blue] CSV for [cyan]{empreendimento}[/cyan]\n')
         df_name = f'{path_system}businessCase&{empreendimento}&{coordinates[0]}+{coordinates[1]}&.csv'
+        print(f'[yellow]{df_name} created\n\n')
         interest_dataframe.to_csv(df_name, sep=';')
         
