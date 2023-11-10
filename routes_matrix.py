@@ -27,21 +27,30 @@ def routesMatrix():
             language='pt-BR',
             units='metric'
         )
-        
-        rows = response.get('rows')[0].get('elements')
-        print(f'[purple]Returned[/purple]:\n{response}\n')
-        df_response = pd.DataFrame(rows)
-        df_response.drop(columns=['status'], axis=1, inplace=True)
 
-        for i in df_response.index:
-            minutos = int(df_response.at[i, 'duration'].get('value')) / 60
-            df_response.at[i, 'distance'] = df_response.at[i, 'distance'].get('value')
-            df_response.at[i, 'duration'] = round(minutos, 2)
-        df_response.columns = ['distancia(metros)', 'tempo_de_viagem(minutos)']
-        print(f'DataFrame from response:\n{df_response}\n\n')
+        try:        
+            rows = response.get('rows')[0].get('elements')
+            print(f'[purple]Returned[/purple]:\n{response}\n')
+            df_response = pd.DataFrame(rows)
+            df_response.drop(columns=['status'], axis=1, inplace=True)
 
-        df_response = pd.concat([df, df_response], axis=1)
-        print(f'DataFrame concatenated:\n{df_response}\n\n')
-        print(f'\n[green]Updating[/green] CSV [purple]{caso}[/purple]\n')
-        df_response.to_csv(caso, sep=';')
-        print(f'[yellow]Updated {caso}\n\n')
+            for i in df_response.index:
+                minutos = int(df_response.at[i, 'duration'].get('value')) / 60
+                df_response.at[i, 'distance'] = df_response.at[i, 'distance'].get('value')
+                df_response.at[i, 'duration'] = round(minutos, 2)
+            df_response.columns = ['distancia(metros)', 'tempo_de_viagem(minutos)']
+            print(f'DataFrame from response:\n{df_response}\n\n')
+
+            df_response = pd.concat([df, df_response], axis=1)
+            print(f'DataFrame concatenated:\n{df_response}\n\n')
+            print(f'\n[green]Updating[/green] CSV [purple]{caso}[/purple]\n')
+            df_response = drop_unnamed(df_response)
+            updt_name = f"{caso.split('.')[0]}MATRIX_APPLIED.csv"
+            df_response.to_csv(updt_name, sep=';')
+            print(f'[yellow]Created {updt_name}\n\n')
+        except:
+            empreendimento = caso.split('&')[1]
+            row = 0
+            print('\n[bright_red]WARNING:[/bright_red] Response not expected\nCSV will not be updated, [yellow]txt file with description will be created instead[/yellow]\n')
+            error_description = f"Problem: Could not create a proper DataFrame for API response\n\nName: {empreendimento}\n\nCoordinates: {pin_point}\n\nVicinity: {df.at[row, 'txt_uf']} {df.at[row, 'txt_municipio']} {df.at[row, 'txt_endereco']}\n\nCEP: {df.at[row, 'txt_cep']}\n\nOrigin DataFrame: {caso}\n\nAPI Response: {response}"
+            problem_handler = open(f'system/matrix_applied/PROBLEM_MATRIX_at_{empreendimento}.txt', 'w').write(error_description)

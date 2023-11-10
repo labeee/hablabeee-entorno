@@ -49,15 +49,16 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     interest_columns = interest_dataframe.columns
     original_columns = input_dataframe.columns
     if len(interest_dataframe) == 0:
-        print('\n[red]WARNING:[/red] DataFrame of lenght 0\nCSV will not be created, [yellow]txt file with description will be created instead[/yellow]\n')
+        print('\n[bright_red]WARNING:[/bright_red] DataFrame of lenght 0\nCSV will not be created, [yellow]txt file with description will be created instead[/yellow]\n')
         error_description = f"Problem: No interest points found\n\nName: {empreendimento}\n\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\n\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\n\nCEP: {input_dataframe.at[row, 'txt_cep']}\n\nRow/Index at DataFrame: {row}\n\nOrigin DataFrame: {base}"
-        problem_handler = open(f'system/PROBLEM_at_{empreendimento}.txt', 'w').write(error_description)
+        problem_handler = open(f'system/PROBLEM_PLACES_at_{empreendimento}.txt', 'w').write(error_description)
     else:
         interest_dataframe[original_columns] = input_dataframe.loc[row]
         interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]
         print(interest_dataframe)
         print(f'\n[blue]Creating[/blue] CSV for [cyan]{empreendimento}[/cyan]\n')
         df_name = f'{path_system}businessCase&{empreendimento}&{coordinates[0]}+{coordinates[1]}&.csv'
-        print(f'[yellow]{df_name} created\n\n')
+        interest_dataframe = drop_unnamed(interest_dataframe)
         interest_dataframe.to_csv(df_name, sep=';')
+        print(f'[yellow]{df_name} created\n\n')
         
