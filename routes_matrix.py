@@ -7,7 +7,7 @@
 from setup import *
 
 def routesMatrix():
-    globed = glob(f'{path_system}*.csv')
+    globed = glob(f'{path_system}*&.csv')
     for caso in track(globed, description='Aplicando [green]DistanceMatrix...', style='black', complete_style='white', finished_style='green'):
         print(separators)
         df = pd.read_csv(caso, sep=';')
