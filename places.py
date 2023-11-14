@@ -14,6 +14,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     cep: cep do empreendimento que está sendo processado
     base: nome do arquivo com diretorio
     """
+    empreendimento = empreendimento.replace('/', '--').replace('\\', '--')
     size = len(input_dataframe)
     interest_dataframe = pd.DataFrame()
     interest_dataframe[['keyword', 'local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
