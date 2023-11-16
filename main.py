@@ -26,6 +26,7 @@ nbp = False
 rm = False
 
 for base in globed:
+    name = base.split('\\')[-1]
     input_dataframe = pd.read_csv(base, sep=';')
     opt = 0
     while opt != '':
@@ -50,9 +51,9 @@ for base in globed:
                 selection = input('...')
                 clear_screen()
                 if selection == '0':
-                    concatenate_dataframes(output_name=base)
+                    concatenate_dataframes(output_name=name)
             else:
-                concatenate_dataframes(output_name=base)
+                concatenate_dataframes(output_name=name)
         
 clear_screen()
 print(title)

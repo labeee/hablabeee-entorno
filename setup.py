@@ -47,8 +47,8 @@ def concatenate_dataframes(output_name: str):
         concat_df = pd.concat([concat_df, new_df], axis=0, ignore_index=True)
     concat_df = drop_unnamed(concat_df)
     now = datetime.now().strftime('%d-%m-%Y_%H-%M')
-    concat_df.to_csv(f'{path_output}hab_entorno_{now}_{output_name}.csv', sep=';')
-    print(f'\n[yellow]CSV {path_output}hab_entorno_{now}_{output_name}.csv successfully created')
+    concat_df.to_csv(f'{path_output}hab_entorno_{now}_{output_name}', sep=';')
+    print(f'\n[yellow]CSV {path_output}hab_entorno_{now}_{output_name} successfully created')
 
 
 def drop_unnamed(df: pd.DataFrame):

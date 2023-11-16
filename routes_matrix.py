@@ -45,7 +45,7 @@ def routesMatrix():
             print(f'DataFrame concatenated:\n{df_response}\n\n')
             print(f'\n[green]Updating[/green] CSV [purple]{caso}[/purple]\n')
             df_response = drop_unnamed(df_response)
-            updt_name = f"{caso.split('.')[0]}MATRIX_APPLIED.csv"
+            updt_name = f"{caso.split('.csv')[0]}MATRIX_APPLIED.csv"
             df_response.to_csv(updt_name, sep=';')
             print(f'[yellow]Created {updt_name}\n\n')
         except:
