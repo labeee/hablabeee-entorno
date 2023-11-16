@@ -50,9 +50,9 @@ for base in globed:
                 selection = input('...')
                 clear_screen()
                 if selection == '0':
-                    concatenate_dataframes()
+                    concatenate_dataframes(output_name=base)
             else:
-                concatenate_dataframes()
+                concatenate_dataframes(output_name=base)
         
 clear_screen()
 print(title)
