@@ -1,0 +1,6 @@
+;interest_name;interest_coordinates;interest_vicinity;interest_types
+0;Mercado Dangui;{'lat': -26.000279, 'lng': -52.21963599999999};Cov�, Mangueirinha;['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment']
+1;Mercearia nossa senhora da Aparecida;{'lat': -26.0011845, 'lng': -52.2228516};n�86 - Cov�, Mangueirinha;['point_of_interest', 'establishment']
+2;Mercado Goncalves;{'lat': -25.939607, 'lng': -52.1803128};R. Pedro �lvares Cabral, 313 - Mangueirinha;['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment']
+3;�talo Supermercados - Mangueirinha;{'lat': -25.9406595, 'lng': -52.1776272};R. Jos� Bonif�cio, 78 - Centro, Mangueirinha;['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment']
+5;Zezinho Supermercados;{'lat': -25.9415592, 'lng': -52.1724595};R. Rui Barbosa, 251 - Centro, Mangueirinha;['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment']

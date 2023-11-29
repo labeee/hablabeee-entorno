@@ -1,7 +1,13 @@
 import pandas as pd
+from rich import print
+from rich.traceback import install
+install()
 
 false = False
 true = True
+
+# Mercado Camargo original: {'lat': -25.9377167, 'lng': -52.1811354}
+# Mercado Camargo foi colocado com as mesmas coordenadas do Mercado Ítalo
 
 ex = {'html_attributions': [], 
 'next_page_token': 'AcJnMuE26ccXhRDESmFKMm4h2D_NvwZjazXc-WEs7GsvX7XUmYqhVTmjCaDGi5uOdUW82riM_GCpQTj048Gdl5GVto0QMjT66zsASRbYA_x4BZIhxEPbHBHaOViaCCJkRRMGQry8BMapyCR6vsFkUv-UPJgBTmUwSOjXyi9Tkxk68F7H_RJVHQtZxL_4Ow0hS48Iq3z28U8--7HkCDzAByF4cLnDkzJFgHRrrcTOVJW2Ut7fMaQUU02--yPWXSELHdl36co6hcOJL9wd6cuVSeNIM4STtorgifLMFuUnLkp-MTZ8i19LOXHgmIk2Xv5d_cdihngyl3VJyctShez-zuHiTUWtVdHodIp51WzRs6Ki1Kmdso-_tGwi3i_UWshcS2SjrB4QGXBdQGNWil9WWTqeGlvJ3bohYEtuSCwsE1tVFXt3Ax5jxNuC40yEKRM', 
@@ -12,10 +18,10 @@ ex = {'html_attributions': [],
 {'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -26.0011845, 'lng': -52.2228516}, 'viewport': {'northeast': {'lat': -25.99979122010728, 'lng': -52.22152287010726}, 'southwest': {'lat': -26.00249087989272, 'lng': -52.22422252989271}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet', 'name': 'Mercearia nossa senhora da Aparecida', 'opening_hours': {'open_now': True}, 'place_id': 'ChIJ4yACXnBj5ZQRXB_k6N7UMkY', 'plus_code': {'compound_code': 'XQXG+GV Cov�, Mangueirinha - State of Paran�', 'global_code': '5859XQXG+GV'}, 'rating': 0, 'reference': 'ChIJ4yACXnBj5ZQRXB_k6N7UMkY', 'scope': 'GOOGLE', 'types': ['point_of_interest', 'establishment'], 'user_ratings_total': 0, 'vicinity': 'n�86 - Cov�, Mangueirinha'}, 
 
 {'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -25.939607, 'lng': -52.1803128}, 'viewport': {'northeast': {'lat': -25.93825997010728, 'lng': -52.17894272010728}, 'southwest': {'lat': -25.94095962989272, 'lng': -52.18164237989272}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet', 'name': 'Mercado Goncalves', 'opening_hours': {'open_now': True}, 'photos': [{'height': 963, 'html_attributions': ['<a href="https://maps.google.com/maps/contrib/103088055706241446066">Thyago Gon�alves</a>'], 'photo_reference': 'AcJnMuEtsr_TnQj81jTVYX0B-Gf0OsEimHzfiH3_T9APb6Fbr-_L7oufB8EEnv3lwXXKnyteLZokPgXNQ4nqKBT7xYyVURzxpxvbgCRzS3eukP9f62Wafep2EbcuYrX8veOeK6Ijv-Tf77qkatv-gZch_hs-_yIalmiF2E2gGOhPewnBT2Y', 'width': 670}], 'place_id': 'ChIJd0x-WfeH75QRo3Mn22_6vHk', 'plus_code': {'compound_code': '3R69+5R Mangueirinha, State of Paran�', 'global_code': '58693R69+5R'}, 'rating': 4.4, 'reference': 'ChIJd0x-WfeH75QRo3Mn22_6vHk', 'scope': 'GOOGLE', 'types': ['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment'], 'user_ratings_total': 10, 'vicinity': 'R. Pedro �lvares Cabral, 313 - Mangueirinha'},
- 
+
 {'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -25.9406595, 'lng': -52.1776272}, 'viewport': {'northeast': {'lat': -25.93915957010728, 'lng': -52.17622667010728}, 'southwest': {'lat': -25.94185922989272, 'lng': -52.17892632989273}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet', 'name': '�talo Supermercados - Mangueirinha', 'opening_hours': {'open_now': True}, 'photos': [{'height': 1840, 'html_attributions': ['<a href="https://maps.google.com/maps/contrib/114070210979932873926">Adailton Cupinski J�nior</a>'], 'photo_reference': 'AcJnMuFL57DRSq7SAeIegIeU1RmhFDe35X5NeD0F-2QdlJj0WCYmhZ5ZoDGXKW9aSCx1yVdq9_LZuK5aDlkYYS4GUIuFwyiCORF-tDKgbV7wztU1tOhXu8d6YvDtJPaCdKjUP8X2MczWQH79qneA60WayJ9XT1Wb_XQmveSWJkDee9rQGJ_o', 'width': 3264}], 'place_id': 'ChIJh51_gPuH75QRHACCz3Okf6Y', 'plus_code': {'compound_code': '3R5C+PW Mangueirinha, State of Paran�', 'global_code': '58693R5C+PW'}, 'rating': 4.3, 'reference': 'ChIJh51_gPuH75QRHACCz3Okf6Y', 'scope': 'GOOGLE', 'types': ['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment'], 'user_ratings_total': 376, 'vicinity': 'R. Jos� Bonif�cio, 78 - Centro, Mangueirinha'}, 
 
-{'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -25.9377167, 'lng': -52.1811354}, 'viewport': {'northeast': {'lat': -25.93637352010728, 'lng': -52.17974532010727}, 'southwest': {'lat': -25.93907317989272, 'lng': -52.18244497989271}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet', 'name': 'Mercado Camargo', 'opening_hours': {'open_now': True}, 'photos': [{'height': 1456, 'html_attributions': ['<a href="https://maps.google.com/maps/contrib/105149835114812076193">Evandro d tezze</a>'], 'photo_reference': 'AcJnMuFooasxUbIbOroQMh2BuNXYwSwk56KpBLBRvv3Sotu4UZYF6ZS0J2cm-7XD2Mw3MN2JwlDk7iw39IP1j8QnBWw1F_FNLLE-P10_y-RfzqNOojnT-fXHwS0hqN9EcTEV4Xf8ukzvI3rg80cEdYfytH8cFgNazEG5J0jAQQVGA1rmtZsB', 'width': 2592}], 'place_id': 'ChIJman8DPqH75QRD8Fb4GytU9I', 'plus_code': {'compound_code': '3R69+WG Mangueirinha, State of Paran�', 'global_code': '58693R69+WG'}, 'rating': 4.3, 'reference': 'ChIJman8DPqH75QRD8Fb4GytU9I', 'scope': 'GOOGLE', 'types': ['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment'], 'user_ratings_total': 55, 'vicinity': 'R. Pres. Juscelino Kubitscheck, 507-529 - Mangueirinha'}, 
+{'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -25.9406595, 'lng': -52.1776272}, 'viewport': {'northeast': {'lat': -25.93637352010728, 'lng': -52.17974532010727}, 'southwest': {'lat': -25.93907317989272, 'lng': -52.18244497989271}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet', 'name': 'Mercado Camargo', 'opening_hours': {'open_now': True}, 'photos': [{'height': 1456, 'html_attributions': ['<a href="https://maps.google.com/maps/contrib/105149835114812076193">Evandro d tezze</a>'], 'photo_reference': 'AcJnMuFooasxUbIbOroQMh2BuNXYwSwk56KpBLBRvv3Sotu4UZYF6ZS0J2cm-7XD2Mw3MN2JwlDk7iw39IP1j8QnBWw1F_FNLLE-P10_y-RfzqNOojnT-fXHwS0hqN9EcTEV4Xf8ukzvI3rg80cEdYfytH8cFgNazEG5J0jAQQVGA1rmtZsB', 'width': 2592}], 'place_id': 'ChIJman8DPqH75QRD8Fb4GytU9I', 'plus_code': {'compound_code': '3R69+WG Mangueirinha, State of Paran�', 'global_code': '58693R69+WG'}, 'rating': 4.3, 'reference': 'ChIJman8DPqH75QRD8Fb4GytU9I', 'scope': 'GOOGLE', 'types': ['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment'], 'user_ratings_total': 55, 'vicinity': 'R. Pres. Juscelino Kubitscheck, 507-529 - Mangueirinha'}, 
 
 {'business_status': 'OPERATIONAL', 'geometry': {'location': {'lat': -25.9415592, 'lng': -52.1724595}, 'viewport': {'northeast': {'lat': -25.94021872010728, 'lng': -52.17103517010727}, 'southwest': {'lat': -25.94291837989272, 'lng': -52.17373482989272}}}, 'icon': 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png', 'icon_background_color': '#4B96F3', 'icon_mask_base_uri': 'https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet', 'name': 'Zezinho Supermercados', 'opening_hours': {'open_now': True}, 'photos': [{'height': 1080, 'html_attributions': ['<a href="https://maps.google.com/maps/contrib/103838691875336525192">sou de jesus Moraes</a>'], 'photo_reference': 'AcJnMuF2L4gT75OTox5vWvDhRl5OIM7E6S-UP59gCTyX1URzZLG_qCfzHfh56k1pbJ3pz7GyT3PUcqvPbUZnkLgTZdMlZCEUYofT8neV7ls0gHTmuh3NqRn-ECNfjFlUpzacJkOd7BRwB5iYgEFq5mft5xqiEpe0lobEbtgwvE13YPuSa-eh', 'width': 1920}], 'place_id': 'ChIJS0z4uveH75QRc96sqvHK9FY', 'plus_code': {'compound_code': '3R5H+92 Mangueirinha, State of Paran�', 'global_code': '58693R5H+92'}, 'rating': 4.5, 'reference': 'ChIJS0z4uveH75QRc96sqvHK9FY', 'scope': 'GOOGLE', 'types': ['supermarket', 'grocery_or_supermarket', 'store', 'food', 'point_of_interest', 'establishment'], 'user_ratings_total': 465, 'vicinity': 'R. Rui Barbosa, 251 - Centro, Mangueirinha'}, 
 
@@ -52,19 +58,50 @@ ex = {'html_attributions': [],
 ex = ex.get('results')
 ex = pd.DataFrame(ex)
 print(ex)
-ex.to_csv(r'testingPlayground/example_raw_places.csv', sep=';')
+# ex.to_csv(r'testingPlayground/example_raw_places.csv', sep=';')
 print('\n'*3)
 
 
 formated = pd.DataFrame()
 formated[['interest_name', 'interest_coordinates', 'interest_vicinity', 'interest_types']] = None
 print(formated)
+cache_coordinates = str({'lat': '000000', 'lng': '000000'})
+cache_name = None
+lenght = 19
+results = 5
+remove_list = []
 for row in ex.index:
-    formated.at[row, 'interest_name'] = ex.at[row, 'name']
-    formated.at[row, 'interest_coordinates'] = ex.at[row, 'geometry']['location']
-    formated.at[row, 'interest_vicinity'] = ex.at[row, 'vicinity']
-    formated.at[row, 'interest_types'] = ex.at[row, 'types']
-print('\n'*3)
+    if row < results and row < lenght:
+        print('\n\n')
+        print('_'*50+f' iteration number {row} looking for {results} results')
+        print('*'*25)
+        print('In iteration')
+        print(f"Lat - {str(ex.at[row, 'geometry']['location'])[8:15]}")
+        print(f"Lng - {str(ex.at[row, 'geometry']['location'])[28:35]}")
+        print('*'*25)
+        print('*'*25)
+        print('In cache')
+        print(f"Lat - {cache_coordinates[8:15]}")
+        print(f"Lng - {cache_coordinates[28:35]}")
+        print(f'Name - {cache_name}')
+        print('*'*25)
+        if str(ex.at[row, 'geometry']['location'])[8:15] == cache_coordinates[8:15] and str(ex.at[row, 'geometry']['location'])[28:35] == cache_coordinates[28:35]:
+            print(f'\nROW = {row}\nCOORD = {ex.at[row, "geometry"]["location"]} FROM PLACE {ex.at[row, "name"]}\nCACHE = {cache_coordinates} NAME = {cache_name}\n')
+            results += 1
+            remove_list.append(row)
+            print(f'REMOVE LIST = {remove_list}\n')
+        formated.at[row, 'interest_name'] = ex.at[row, 'name']
+        formated.at[row, 'interest_coordinates'] = ex.at[row, 'geometry']['location']
+        formated.at[row, 'interest_vicinity'] = ex.at[row, 'vicinity']
+        formated.at[row, 'interest_types'] = ex.at[row, 'types']
+        cache_coordinates = str(ex.at[row, 'geometry']['location'])
+        cache_name = ex.at[row, 'name']
+        print(formated)
+
+print('\n\n')
+print('>'*50+'REMOVING LIST OF SAME COORD')
+formated.drop(remove_list, inplace=True)
 print(formated)
+print('<'*50)
+
 formated.to_csv(r'testingPlayground/example_filtered_places.csv', sep=';')
-print('\n'*3)
