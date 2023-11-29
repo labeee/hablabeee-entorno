@@ -23,7 +23,8 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
         response = client.places_nearby(
             location=(coordinates[0], coordinates[1]),
             keyword=i.split('?')[0],
-            rank_by='distance'
+            rank_by='distance',
+            type=i.split('?')[2]
         )
         print(f'Looking for [blue]{i.split("?")[0]}[/blue], [green]got {len(response.get("results"))} results[/green]')
         

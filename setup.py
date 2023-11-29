@@ -30,11 +30,11 @@ client = googlemaps.Client(key)
 
 # Variables
 interest_zones = [
-    "mercado?5", 
-    "farmacia?5", 
-    "loterica?5", 
-    "escola publica?5", 
-    "posto de saude?5"
+    "mercado?5?None", 
+    "farmacia?5?None", 
+    "loterica?5?None", 
+    "escola publica?5?school", 
+    "posto de saude?5?health"
     ]
 
 
