@@ -36,12 +36,14 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
             append_dataframe[['keyword', 'local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
             results = len(response.get('results'))
             print(f'[green1]Processing the [/green1][pink]{i.split("?")[1]}[/pink] [green1]first returned values...[/green1]')
-            cache_coordinates = str({'lat': '000000', 'lng': '000000'})
+            cache_coordinates = {'lat': 9999999, 'lng': 9999999}
+            cache_name = None
             looking_for = int(i.split('?')[1])
+            remove_list = []
             for ind in business.index:
                 if (ind < looking_for) and (ind < results):
-                    if business.at[ind, 'geometry']['location'][8:15] == cache_coordinates[8:15] and business.at[ind, 'geometry']['location'][28:35] == cache_coordinates[28:35]:
-                        print(f'[bright_red]Found same coordinates for different places, adding it to a remove list for future removal')
+                    if str(business.at[ind, 'geometry']['location']['lat'])[:10] == str(cache_coordinates['lat'])[:10] and str(business.at[ind, 'geometry']['location']['lng'])[:10] == str(cache_coordinates['lng'])[:10]:
+                        print(f'[bright_red]Found same coordinates for different places, adding it to a remove list for future removal[/bright_red]\nPlace: {business.at[ind, "name"]} {business.at[ind, "geometry"]["location"]}\nPlace at cache: {cache_name} {cache_coordinates}')
                         looking_for += 1
                         remove_list.append(row)
                     append_dataframe.at[ind, 'keyword'] = i.split('?')[0]
@@ -50,9 +52,10 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                     append_dataframe.at[ind, 'endereco_do_local'] = business.at[ind, 'vicinity']
                     append_dataframe.at[ind, 'tipos_do_local'] = business.at[ind, 'types']
                     cache_coordinates = business.at[ind, 'geometry']['location']
+                    cache_name = business.at[ind, 'name']
                     print(f'[magenta]\tAppending items of index[/magenta] {ind}')
             print(f'[purple]Removing same coordinate places...')
-            formated.drop(remove_list, inplace=True)
+            append_dataframe.drop(remove_list, inplace=True)
             interest_dataframe = pd.concat([interest_dataframe, append_dataframe], axis=0, ignore_index=True)
             print('[green]Successfully processed DataFrame\n')
         
