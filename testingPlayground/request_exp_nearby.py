@@ -1,7 +1,7 @@
 import googlemaps
 
-# Atualmente são coordenadas de Covó, em Mangueirinha (PR)
-coordenadas = '-25.997858098017268/-52.22127528495758'
+# Atualmente são coordenadas do LabEEE
+coordenadas = '-27.599669553295215/-48.5147299581353'
 coordinates = coordenadas.split('/')
 
 key = 'INSIRA SUA CHAVE'
@@ -10,7 +10,7 @@ client = googlemaps.Client(key)
 
 response = client.places_nearby(
     location=(coordinates[0], coordinates[1]),
-    keyword='Mercado',
+    keyword='Posto de saude',
     rank_by='distance'
 )
 

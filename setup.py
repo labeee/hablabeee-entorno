@@ -59,6 +59,22 @@ def drop_unnamed(df: pd.DataFrame):
     df.drop(unnamed_list, axis=1, inplace=True)
     return df
 
+def match_coordinates(lat, lng, vicinity, place_name, cache_coordinates:dict, cache_vicinity:str, cache_name:str):
+    if str(lat)[:7] == str(cache_coordinates['lat'])[:7] and str(lng)[:7] == str(cache_coordinates['lng'])[:7]:
+        print(f'[bright_red]Found same coordinates for different places, adding it to a remove list for future removal[/bright_red]\nPlace:{place_name} {vicinity} ({lat} {lng})\nPlace at cache: {cache_name} {cache_vicinity} ({cache_coordinates})')
+        message = f'Found places with same coordinates\n\n{"- "*20}\nSaved at cache: {cache_name}\nVicinity: {cache_vicinity}\nCoordinates: {cache_coordinates}\n{"- "*20}\n\nPlace next to it: {place_name}\nVicinity: {vicinity}\nCoordinates: {lat} {lng}\n'
+        open(f'system/problems/SAME_COORDINATES_AT_{lat}+{lng}_AND_{cache_coordinates["lat"]}+{cache_coordinates["lng"]}.txt', 'w').write(message)
+        return True
+    elif str(lat)[:5] == str(cache_coordinates['lat'])[:5] and str(lng)[:5] == str(cache_coordinates['lng'])[:5]:
+        if vicinity[:15] == cache_vicinity[:15]:
+            print(f'[bright_red]Found lookalike coordinates and vicinities for different places, adding it to a remove list for future removal[/bright_red]\nPlace: {vicinity} ({lat} {lng})\nPlace at cache: {cache_name} {cache_vicinity} ({cache_coordinates})')
+            message = f'Found places with same lookalike coordinates and vicinities\n\n{"- "*20}\nSaved at cache: {cache_name}\nVicinity: {cache_vicinity}\nCoordinates: {cache_coordinates}\n{"- "*20}\n\nPlace next to it: {place_name}\nVicinity: {vicinity}\nCoordinates: {lat} {lng}\n'
+            open(f'system/problems/LOOKALIKE_PLACES_AT_{lat}+{lng}_AND_{cache_coordinates["lat"]}+{cache_coordinates["lng"]}.txt', 'w').write(message)
+            return True
+        else:
+            return False
+    else:
+        return False
 
 # ASCII ART/CONFIGS
 
