@@ -48,7 +48,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                         if 'gas_station' in business.at[ind, 'types']:
                             print(f'[bright_red]Found gas station {business.at[ind, "name"]}')
                             message = f'Found gas station\n\nName: {business.at[ind, "name"]}\nVicinity: {business.at[ind, "vicinity"]}\nTypes: {business.at[ind, "types"]}\n'
-                            open(f'system/problems/GAS_STATION_{str(business.at[ind, "geometry"]["location"]["lat"]).replace(".", ",")}+{str(business.at[ind, "geometry"]["location"]["lng"]).replace(".", ",")}.txt', 'w').write(message)
+                            open(f'system/problems/GAS_STATION_{str(business.at[ind, "geometry"]["location"]["lat"]).replace(".", ",")[:10]}+{str(business.at[ind, "geometry"]["location"]["lng"]).replace(".", ",")[:10]}.txt', 'w').write(message)
                             looking_for += 1
                             remove_list.append(ind)
                         else:
