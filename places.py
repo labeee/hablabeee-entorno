@@ -48,7 +48,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                         if 'gas_station' in business.at[ind, 'types']:
                             print(f'[bright_red]Found gas station {business.at[ind, "name"]}')
                             message = f'Found gas station\n\nName: {business.at[ind, "name"]}\nVicinity: {business.at[ind, "vicinity"]}\nTypes: {business.at[ind, "types"]}\n'
-                            open(f'system/problems/GAS_STATION_{str(business.at[ind, "geometry"]["location"]["lat"]).replace(".", ",")[:10]}+{str(business.at[ind, "geometry"]["location"]["lng"]).replace(".", ",")[:10]}.txt', 'w').write(message)
+                            open(f'system/problems/GAS_STATION_{str(business.at[ind, "geometry"]["location"]["lat"]).replace(".", ",")[:10]}+{str(business.at[ind, "geometry"]["location"]["lng"]).replace(".", ",")[:10]}.txt', 'w', encoding="utf-8").write(message)
                             looking_for += 1
                             remove_list.append(ind)
                         else:
@@ -81,7 +81,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     if len(interest_dataframe) == 0:
         print('\n[bright_red]WARNING:[/bright_red] DataFrame of lenght 0\nCSV will not be created, [yellow]txt file with description will be created instead[/yellow]\n')
         error_description = f"Problem: No interest points found\n\nName: {empreendimento}\n\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\n\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\n\nCEP: {input_dataframe.at[row, 'txt_cep']}\n\nRow/Index at DataFrame: {row}\n\nOrigin DataFrame: {base}"
-        problem_handler = open(f'system/problems/PLACES_at_{empreendimento}.txt', 'w').write(error_description)
+        problem_handler = open(f'system/problems/PLACES_at_{empreendimento}.txt', 'w', encoding="utf-8").write(error_description)
     else:
         interest_dataframe[original_columns] = input_dataframe.loc[row]
         interest_dataframe = interest_dataframe[original_columns.tolist()+interest_columns.tolist()]

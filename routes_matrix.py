@@ -53,4 +53,4 @@ def routesMatrix():
             row = 0
             print('\n[bright_red]WARNING:[/bright_red] Response not expected\nCSV will not be updated, [yellow]txt file with description will be created instead[/yellow]\n')
             error_description = f"Problem: Could not create a proper DataFrame for API response\n\nName: {empreendimento}\n\nCoordinates: {pin_point}\n\nVicinity: {df.at[row, 'txt_uf']} {df.at[row, 'txt_municipio']} {df.at[row, 'txt_endereco']}\n\nCEP: {df.at[row, 'txt_cep']}\n\nOrigin DataFrame: {caso}\n\nAPI Response: {response}"
-            problem_handler = open(f'system/problems/MATRIX_at_{empreendimento}.txt', 'w').write(error_description)
+            problem_handler = open(f'system/problems/MATRIX_at_{empreendimento}.txt', 'w', encoding="utf-8").write(error_description)

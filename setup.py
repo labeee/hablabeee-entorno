@@ -63,13 +63,13 @@ def match_coordinates(lat, lng, vicinity, place_name, cache_coordinates:dict, ca
     if str(lat)[:7] == str(cache_coordinates['lat'])[:7] and str(lng)[:7] == str(cache_coordinates['lng'])[:7]:
         print(f'[bright_red]Found same coordinates for different places, adding it to a remove list for future removal[/bright_red]\nPlace:{place_name} {vicinity} ({lat} {lng})\nPlace at cache: {cache_name} {cache_vicinity} ({cache_coordinates})')
         message = f'Found places with same coordinates\n\n{"- "*20}\nSaved at cache: {cache_name}\nVicinity: {cache_vicinity}\nCoordinates: {cache_coordinates}\n{"- "*20}\n\nPlace next to it: {place_name}\nVicinity: {vicinity}\nCoordinates: {lat} {lng}\n'
-        open(f'system/problems/SAME_COORDINATES_AT_{str(lat)[:10]}+{str(lng)[:10]}_AND_{str(cache_coordinates["lat"])[:10]}+{str(cache_coordinates["lng"])[:10]}.txt', 'w').write(message)
+        open(f'system/problems/SAME_COORDINATES_AT_{str(lat)[:10]}+{str(lng)[:10]}_AND_{str(cache_coordinates["lat"])[:10]}+{str(cache_coordinates["lng"])[:10]}.txt', 'w', encoding="utf-8").write(message)
         return True
     elif str(lat)[:5] == str(cache_coordinates['lat'])[:5] and str(lng)[:5] == str(cache_coordinates['lng'])[:5]:
         if vicinity[:15] == cache_vicinity[:15]:
             print(f'[bright_red]Found lookalike coordinates and vicinities for different places, adding it to a remove list for future removal[/bright_red]\nPlace: {vicinity} ({lat} {lng})\nPlace at cache: {cache_name} {cache_vicinity} ({cache_coordinates})')
             message = f'Found places with same lookalike coordinates and vicinities\n\n{"- "*20}\nSaved at cache: {cache_name}\nVicinity: {cache_vicinity}\nCoordinates: {cache_coordinates}\n{"- "*20}\n\nPlace next to it: {place_name}\nVicinity: {vicinity}\nCoordinates: {lat} {lng}\n'
-            open(f'system/problems/LOOKALIKE_PLACES_AT_{str(lat)[:10]}+{str(lng)[:10]}_AND_{str(cache_coordinates["lat"])[:10]}+{str(cache_coordinates["lng"])[:10]}.txt', 'w').write(message)
+            open(f'system/problems/LOOKALIKE_PLACES_AT_{str(lat)[:10]}+{str(lng)[:10]}_AND_{str(cache_coordinates["lat"])[:10]}+{str(cache_coordinates["lng"])[:10]}.txt', 'w', encoding="utf-8").write(message)
             return True
         else:
             return False
