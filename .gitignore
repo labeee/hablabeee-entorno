@@ -3,4 +3,5 @@ __pycache__
 .vscode
 input/*.csv
 output/*.csv
-system/*
+system/*.csv
+system/problems/*
