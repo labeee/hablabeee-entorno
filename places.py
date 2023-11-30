@@ -46,6 +46,9 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                 if (ind < looking_for) and (ind < results):
                     if search_key == 'posto de saude':
                         if 'gas_station' in business.at[ind, 'types']:
+                            print(f'[bright_red]Found gas station {business.at[ind, "name"]}')
+                            message = f'Found gas station\n\nName: {business.at[ind, "name"]}\nVicinity: {business.at[ind, "vicinity"]}\nTypes: {business.at[ind, "types"]}\n'
+                            open(f'system/problems/GAS_STATION_{str(business.at[ind, "geometry"]["location"]["lat"]).replace(".", ",")}+{str(business.at[ind, "geometry"]["location"]["lng"]).replace(".", ",")}.txt', 'w').write(message)
                             looking_for += 1
                             remove_list.append(ind)
                         else:
@@ -53,7 +56,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
                             if matching:
                                 looking_for += 1
                                 remove_list.append(ind)
-                    else:
+                    elif search_key == 'loterica':
                         matching = match_coordinates(lat=business.at[ind, 'geometry']['location']['lat'], lng=business.at[ind, 'geometry']['location']['lng'], place_name=business.at[ind, 'name'],vicinity=business.at[ind, 'vicinity'], cache_coordinates=cache_coordinates, cache_vicinity=cache_vicinity, cache_name=cache_name)
                         if matching:
                             looking_for += 1
