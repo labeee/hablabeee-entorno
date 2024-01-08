@@ -1,5 +1,4 @@
 # HabLabEEE - Entorno
-Elaboração da descrição e do README ficam por responsabilidade da Natasha e do Geraldi
 
 <br>
 <center><h1>Objetivos</h1></center>
