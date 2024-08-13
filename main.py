@@ -8,9 +8,7 @@ if has_setup == '0':
     import os
     os.system('python -m pip install --upgrade pip')
     os.system('pip install --upgrade python')
-    os.system('pip install pandas')
-    os.system('pip install googlemaps')
-    os.system('pip install rich')
+    os.system('pip install -r requirements.txt')
     has_setup = open(r'system/has_setup.txt', 'w').write('1')
 
 from setup import *
@@ -27,7 +25,7 @@ rm = False
 
 for base in globed:
     name = base.split('\\')[-1]
-    input_dataframe = pd.read_csv(base, sep=';')
+    input_dataframe = pd.read_csv(base, sep=';', encoding='latin-1')
     opt = 0
     while opt != '':
         print((f'\n\n\n{separators}\nSelect an option to continue:\n\n[1] Apply [blue]NearbyPlaces[/blue]\n[2] Apply [green]RoutesMatrix[/green]\n[3] [yellow]Concatenate[/yellow] and finish process\n\n[ENTER] [bright_red]Exit[/bright_red]\n\n{separators}\n'))
@@ -37,10 +35,10 @@ for base in globed:
             for row in track(input_dataframe.index, description=f'Executando [green]NearbyPlaces...', style='black', complete_style='white', finished_style='green'):
                 print(separators)
                 empreendimento_nome = input_dataframe.at[row, 'txt_nome_do_empreendimento']
-                cep = input_dataframe.at[row, 'txt_cep']
+                # cep = input_dataframe.at[row, 'txt_cep']
                 coordinates = f"{str(input_dataframe.at[row, 'latitude'])}/{str(input_dataframe.at[row, 'longitude'])}"
                 print(f'\nApplying NearbySearch to [purple]{empreendimento_nome}[/purple] of coordinates {coordinates}\n')
-                nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, cep=cep, base=base)
+                nearbyPlaces(hab=coordinates, input_dataframe=input_dataframe, row=row, empreendimento=empreendimento_nome, base=base)#cep=cep
             nbp = True
         elif opt == '2':
             routesMatrix()

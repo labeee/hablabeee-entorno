@@ -47,10 +47,12 @@ def routesMatrix():
             df_response = drop_unnamed(df_response)
             updt_name = f"{caso.split('.csv')[0]}MATRIX_APPLIED.csv"
             df_response.to_csv(updt_name, sep=';')
+            os.remove(caso)
             print(f'[yellow]Created {updt_name}\n\n')
         except:
             empreendimento = caso.split('&')[1]
             row = 0
             print('\n[bright_red]WARNING:[/bright_red] Response not expected\nCSV will not be updated, [yellow]txt file with description will be created instead[/yellow]\n')
-            error_description = f"Problem: Could not create a proper DataFrame for API response\n\nName: {empreendimento}\n\nCoordinates: {pin_point}\n\nVicinity: {df.at[row, 'txt_uf']} {df.at[row, 'txt_municipio']} {df.at[row, 'txt_endereco']}\n\nCEP: {df.at[row, 'txt_cep']}\n\nOrigin DataFrame: {caso}\n\nAPI Response: {response}"
-            problem_handler = open(f'system/problems/MATRIX_at_{empreendimento}.txt', 'w', encoding="utf-8").write(error_description)
+            error_description = f"Problem: Could not create a proper DataFrame for API response\n\nName: {empreendimento}\n\nCoordinates: {pin_point}\n\nVicinity: NOT INDICATED\n\nCEP: NOT INDICATED\n\nOrigin DataFrame: {caso}\n\nAPI Response: {response}" # CEP: {df.at[row, 'txt_cep']} / Vicinity: {df.at[row, 'txt_uf']} {df.at[row, 'txt_municipio']} {df.at[row, 'txt_endereco']}
+            with open(f'system/problems/MATRIX_at_{empreendimento}.txt', 'w', encoding="latin-1") as file:
+                file.write(error_description)

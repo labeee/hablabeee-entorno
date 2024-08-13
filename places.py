@@ -5,16 +5,16 @@
 
 from setup import *
 
-def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, cep:str, base: str):
+def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimento: str, base: str, cep: str = None):
     """
     hab: coordenadas da habitação (no formato ** latitude/longitude **)
     input_dataframe: dataframe original
     row: linha que está sendo processada
     empreendimento: nome do empreendimento que está sendo processado
-    cep: cep do empreendimento que está sendo processado
+    cep: cep do empreendimento que está sendo processado. NÃO OBRIGATÓRIO
     base: nome do arquivo com diretorio
     """
-    empreendimento = empreendimento.replace('/', '--').replace('\\', '--').replace('.','').replace('&','E')
+    empreendimento = empreendimento.replace('/', '--').replace('\\', '--').replace('.','').replace('&','E').replace("|", '')
     size = len(input_dataframe)
     interest_dataframe = pd.DataFrame()
     interest_dataframe[['keyword', 'local_de_interesse', 'coordenada_do_local', 'endereco_do_local', 'tipos_do_local']] = None
