@@ -15,3 +15,10 @@ Com todas as variáveis devidamente definidas, é lida cada linha da planilha de
 - Essa planilha preenchida é então salva dentro de system com um nome que diferencie ela das outras;
 - Cada planilha é separadamente lida, e é aplicado o DistanceMatrix a cada habitação com relação aos pontos encontrados, então a distância e tempo de viagem são salvos nela;
 - Todas as planilhas são concatenadas e é criado um arquivo em output do processo completo.
+
+<br><br><br><br>
+
+![Primeira etapa](docs/1.gif)
+![Segunda etapa](docs/2.gif)
+![Terceira etapa](docs/3.gif)
+![Quarta etapa](docs/4.gif)
