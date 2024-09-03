@@ -22,9 +22,9 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     for i in interest_zones:
         response = client.places_nearby(
             location=(coordinates[0], coordinates[1]),
-            keyword=i.split('?')[0],
+            keyword=None if i.split('?')[0] == "None" else i.split('?')[0],
             rank_by='distance',
-            type=i.split('?')[2]
+            type=None if i.split('?')[2] == "None" else i.split('?')[2] 
         )
         print(f'Looking for [blue]{i.split("?")[0]}[/blue], [green]got {len(response.get("results"))} results[/green]')
         
@@ -80,7 +80,7 @@ def nearbyPlaces(hab: str, input_dataframe: pd.DataFrame, row: int, empreendimen
     original_columns = input_dataframe.columns
     if len(interest_dataframe) == 0:
         print('\n[bright_red]WARNING:[/bright_red] DataFrame of lenght 0\nCSV will not be created, [yellow]txt file with description will be created instead[/yellow]\n')
-        error_description = f"Problem: No interest points found\n\nName: {empreendimento}\n\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\n\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\n\nCEP: {input_dataframe.at[row, 'txt_cep']}\n\nRow/Index at DataFrame: {row}\n\nOrigin DataFrame: {base}"
+        error_description = f"Problem: No interest points found\n\nName: {empreendimento}\n\nCoordinates: {'/'.join(coordinates).replace(',', '.')}\n\nRow/Index at DataFrame: {row}\n\nOrigin DataFrame: {base}"#\nVicinity: {input_dataframe.at[row, 'txt_uf']} {input_dataframe.at[row, 'txt_municipio']} {input_dataframe.at[row, 'txt_endereco']}\n\nCEP: {input_dataframe.at[row, 'txt_cep']}
         problem_handler = open(f'system/problems/PLACES_at_{empreendimento}.txt', 'w', encoding="utf-8").write(error_description)
     else:
         interest_dataframe[original_columns] = input_dataframe.loc[row]
